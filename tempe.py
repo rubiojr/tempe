@@ -107,6 +107,14 @@ stick = driver.USB2Driver(SERIAL, debug=False, log=None)
 antnode = node.Node(stick)
 antnode.start()
 
+# Read (stick) capabilities
+print 'Stick capabilities:'
+capabilities = antnode.getCapabilities()
+print 'Maximum channels:', capabilities[0]
+print 'Maximum network keys:', capabilities[1]
+print 'Standard options: %X' % capabilities[2][0]
+print 'Advanced options: %X' % capabilities[2][1]
+
 # Setup channel
 key = node.NetworkKey('N:ANT+', NETKEY)
 antnode.setNetworkKey(0, key)
@@ -129,9 +137,7 @@ channel.assign('N:ANT+', CHANNEL_TYPE_TWOWAY_RECEIVE)
 #   - 119 is for weight scales
 #   - 120 for Heart Rate sensors
 #
-# channel.setID(25, 0, 0)
-#
-channel.setID(0, 0, 0)
+channel.setID(25, 0, 0)
 
 # Channel Extended Assignment?
 #
